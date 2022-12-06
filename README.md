@@ -1,2 +1,2 @@
-# Whack-A-Ball-AR-
-A conceptualization of the Whack a Mole game in AR
+# Awareness framework for collaborative AR
+Implementation of prototypes of Awareness in Collaborative AR based on Gutwin and Greenbergs work.
