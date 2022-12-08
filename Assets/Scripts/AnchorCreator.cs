@@ -7,7 +7,7 @@ using Photon.Pun.UtilityScripts;
 using UnityEngine.XR;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-
+using UnityEngine.XR.ARCore;
 [RequireComponent(typeof(ARAnchorManager))]
 
 public class AnchorCreator : MonoBehaviour
@@ -32,6 +32,7 @@ public class AnchorCreator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (arena.GetComponent<ARAnchor>() == null)
         {
             ARAnchor anchor = arena.AddComponent<ARAnchor>();

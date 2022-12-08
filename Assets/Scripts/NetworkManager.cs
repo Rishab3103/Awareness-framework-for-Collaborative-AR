@@ -14,62 +14,55 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject playerPrefab;
     public bool isPresent;
     public bool sceneLoad;
-    public Camera ARCam;
-    public Material materialP1;
-    public Material materialP2;
+   
     private Touch touch;
     public Vector3 screen_center;
+    public List<GameObject> Players= new List<GameObject>();
+    private Player Master;
+    private Player Client;
+    public string prefabName;
   
     void Start()
     {
         Instance = this;
-        isPresent = false;
-        screen_center = new Vector3(Screen.width / 2, Screen.height / 2, 5);
+        //isPresent = false;
+        screen_center = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        PhotonNetwork.Instantiate(this.playerPrefab.name, Vector3.zero, Quaternion.identity, 0);
         
+        for(int i=0; i< GameObject.FindGameObjectsWithTag(prefabName).Length; i++)
+        {
+            Players[i] = GameObject.FindGameObjectsWithTag(prefabName)[i];
+            if (Players[i].GetPhotonView().Owner == PhotonNetwork.MasterClient)
+            {
+                Master = Players[i].GetPhotonView().Owner;
+            }
+            else
+            {
+                Client= Players[i].GetPhotonView().Owner;
+            }
+        }
+
+        Debug.Log("Master:" + " " + Master.NickName);
+        Debug.Log("Client:" + " " + Client.NickName);
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        screen_center = new Vector3(Screen.width / 2, Screen.height / 2, 5);
-        
-        if (isPresent == false && GameObject.FindGameObjectsWithTag("dummy").Length != 0)
-        {
-
-            PhotonNetwork.Instantiate(this.playerPrefab.name, Vector3.zero, Quaternion.identity, 0);
-            isPresent = true;
-            GameObject.FindGameObjectsWithTag("hammer1")[0].GetComponent<MeshRenderer>().material = materialP1;
-           
-            GameObject.FindGameObjectsWithTag("hammer1")[1].GetComponent<MeshRenderer>().material = materialP2;
-            
-        }
-/*
-        if (Input.touchCount > 0)
-          {
-              touch = Input.GetTouch(0);
-
-              if (Input.touchCount > 0)
-              {
-                  touch = Input.GetTouch(0);
-
-                  // Update the Text on the screen depending on current position of the touch each frame
-                  GetLocalPlayer();
-              }
-
-          }
-*/
+        GameObject.FindGameObjectsWithTag(prefabName)[0].GetComponent<MeshRenderer>().material.color = Color.red;
+        GameObject.FindGameObjectsWithTag(prefabName)[1].GetComponent<MeshRenderer>().material.color = Color.blue;
         GetLocalPlayer();
-
-
     }
     public void GetLocalPlayer()
     {
-        for (int i = 0; i < GameObject.FindGameObjectsWithTag("hammer1").Length; i++)
+        for (int i = 0; i < GameObject.FindGameObjectsWithTag(prefabName).Length; i++)
         {
-            if (PhotonNetwork.LocalPlayer.NickName == GameObject.FindGameObjectsWithTag("hammer1")[i].GetPhotonView().Owner.NickName)
+            if (PhotonNetwork.LocalPlayer.NickName == GameObject.FindGameObjectsWithTag(prefabName)[i].GetPhotonView().Owner.NickName)
             {
-                GameObject.FindGameObjectsWithTag("hammer1")[i].transform.position = Camera.main.ScreenToWorldPoint(screen_center);
+                GameObject.FindGameObjectsWithTag(prefabName)[i].transform.position = Camera.main.ScreenToWorldPoint(screen_center);
+                GameObject.FindGameObjectsWithTag(prefabName)[i].transform.rotation= Camera.main.transform.rotation;
 
 
             }

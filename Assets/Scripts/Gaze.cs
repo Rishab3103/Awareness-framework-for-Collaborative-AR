@@ -18,7 +18,7 @@ public class Gaze : MonoBehaviourPun
     GameObject pl2_Go;
     GameObject Master;
     GameObject Client;
-   
+    public string PrefabName;
     bool isMasterViewing;
     bool isClientViewing;
     // Start is called before the first frame update
@@ -36,11 +36,24 @@ public class Gaze : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        Master = GameObject.FindGameObjectsWithTag("hammer1")[0];
-        Client = GameObject.FindGameObjectsWithTag("hammer1")[1];
+        /*Master = GameObject.FindGameObjectsWithTag("hammer1")[0];
+        Client = GameObject.FindGameObjectsWithTag("hammer1")[1];*/
+        for(int i=0; i< GameObject.FindGameObjectsWithTag(PrefabName).Length; i++)
+        {
+            if (GameObject.FindGameObjectsWithTag(PrefabName)[i].GetPhotonView().Owner == PhotonNetwork.MasterClient)
+            {
+                Master = GameObject.FindGameObjectsWithTag(PrefabName)[i];
+            }
+            else
+            {
+                Client= GameObject.FindGameObjectsWithTag(PrefabName)[i];
+            }
+        }
         GazeDetection();
-        Debug.Log(isClientViewing);
-        Debug.Log(isMasterViewing);
+        Debug.Log("Client Viewing:"+ isClientViewing);
+        Debug.Log("Master Viewing:"+ isMasterViewing);
+        Debug.Log("Master:" + Master.GetPhotonView().Owner.NickName);
+        Debug.Log("Client:" + Client.GetPhotonView().Owner.NickName);
     }
     public void GazeDetection()
     {
@@ -73,7 +86,7 @@ public class Gaze : MonoBehaviourPun
 
         }
 
-        if (Physics.Raycast(Client.transform.position, Master.transform.forward, out RaycastHit hit_Client))
+        if (Physics.Raycast(Client.transform.position, Client.transform.forward, out RaycastHit hit_Client))
         {
             GameObject go_client = hit_Client.collider.gameObject;
             if (go_client.CompareTag("cube"))

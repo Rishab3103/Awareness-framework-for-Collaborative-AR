@@ -34,33 +34,38 @@ public class TouchDragCube2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount == 1)
+        /* if (Input.touchCount == 1)
+         {
+             screenTouch = Input.GetTouch(0);
+
+             Ray ray = Camera.main.ScreenPointToRay(screenTouch.position);
+             RaycastHit hit;
+             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+             {
+                 go = hit.collider.gameObject;
+                 if (go == gameObject)
+                 {
+                     switch (screenTouch.phase)
+                     {
+                         case TouchPhase.Moved:
+                             if (owner_cube2.text == label_owner.text)
+                             {
+                                 mousePosition = new Vector3(screenTouch.position.x, screenTouch.position.y, 10);
+                                 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                                 transform.position = objPosition;
+                             }
+
+                             break;
+                     }
+                 }
+
+
+             }
+         }*/
+        if (owner_cube2.text != label_owner.text)
         {
-            screenTouch = Input.GetTouch(0);
-
-            Ray ray = Camera.main.ScreenPointToRay(screenTouch.position);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                go = hit.collider.gameObject;
-                if (go == gameObject)
-                {
-                    switch (screenTouch.phase)
-                    {
-                        case TouchPhase.Moved:
-                            if (owner_cube2.text == label_owner.text)
-                            {
-                                mousePosition = new Vector3(screenTouch.position.x, screenTouch.position.y, 10);
-                                objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                                transform.position = objPosition;
-                            }
-
-                            break;
-                    }
-                }
-
-
-            }
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
         }
+
     }
 }
