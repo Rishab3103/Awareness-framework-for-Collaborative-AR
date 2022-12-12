@@ -11,6 +11,8 @@ TagManager:
   - hammer2
   - dummy
   - cube
+  - cube1
+  - cube2
   layers:
   - Default
   - TransparentFX

@@ -16,7 +16,8 @@ public class TouchDragCube2 : MonoBehaviour
     private Transform selection = null;
     private Vector3 dist;
     private TextMeshProUGUI owner_cube2;
-    private TextMeshProUGUI label_owner;
+    private TextMeshProUGUI local_owner;
+    public string scr;
     GameObject go;
     Vector3 mousePosition;
     Vector3 objPosition;
@@ -26,9 +27,9 @@ public class TouchDragCube2 : MonoBehaviour
     void Start()
     {
         owner_cube2 = GameObject.Find("Owner_Cube2").GetComponent<TextMeshProUGUI>();
-        label_owner = GameObject.Find("Label_Owner").GetComponent<TextMeshProUGUI>();
+        local_owner = GameObject.Find("Label_Owner").GetComponent<TextMeshProUGUI>();
         owner_cube2.text = PhotonNetwork.MasterClient.NickName;
-        label_owner.text = PhotonNetwork.LocalPlayer.NickName;
+        local_owner.text = PhotonNetwork.LocalPlayer.NickName;
     }
 
     // Update is called once per frame
@@ -62,9 +63,13 @@ public class TouchDragCube2 : MonoBehaviour
 
              }
          }*/
-        if (owner_cube2.text != label_owner.text)
+        if (owner_cube2.text == local_owner.text)
         {
-            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+            (this.GetComponent(scr) as MonoBehaviour).enabled = true;
+        }
+        else
+        {
+            (this.GetComponent(scr) as MonoBehaviour).enabled = false;
         }
 
     }
