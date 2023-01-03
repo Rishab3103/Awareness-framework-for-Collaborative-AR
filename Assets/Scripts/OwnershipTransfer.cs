@@ -27,6 +27,7 @@ public class OwnershipTransfer : MonoBehaviourPun, IPunOwnershipCallbacks
     public bool isOwner;
     Player player1;
     Player player2;
+    Player player3;
     
     Player new_owner;
     /*bool isP1;
@@ -48,6 +49,7 @@ public class OwnershipTransfer : MonoBehaviourPun, IPunOwnershipCallbacks
 
         player1 = pList[0];
         player2 = pList[1];
+        player3 = pList[2];
 
 
 
@@ -104,47 +106,6 @@ public class OwnershipTransfer : MonoBehaviourPun, IPunOwnershipCallbacks
 
     }
 
-/*   public void OnMouseDrag()
-    {
-        
-        if(owner_cube1.text==label_owner.text)
-        {
-            
-            mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
-            objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            
-            
-            
-        }
-        transform.position = objPosition;
-
-    }*/
-
-    /*public void CheckOwner()
-    {
-        label_owner.text = PhotonNetwork.LocalPlayer.NickName;
-    }*/
-/*    public void TouchDrag()
-    {
-        if (Input.touchCount == 1)
-        {
-            screenTouch = Input.GetTouch(0);
-
-            if (screenTouch.phase == TouchPhase.Moved)
-            {
-                if (owner_cube1.text == label_owner.text)
-                {
-                    
-                    mousePosition = new Vector3(screenTouch.position.x, screenTouch.position.y, distance);
-                    objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                    transform.position = objPosition;
-                }
-            }
-        }
-    }*/
-
-
-
     public void SetMaterial()
     {
         if (this.photonView.Owner.NickName == player1.NickName)
@@ -154,6 +115,10 @@ public class OwnershipTransfer : MonoBehaviourPun, IPunOwnershipCallbacks
         if (this.photonView.Owner.NickName == player2.NickName)
         {
             gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+        }
+        if (this.photonView.Owner.NickName == player3.NickName)
+        {
+            gameObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
         }
 
     }

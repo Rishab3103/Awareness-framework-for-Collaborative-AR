@@ -8,7 +8,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 {
     [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
     [SerializeField]
-    private byte maxPlayersPerRoom = 2;
+    private byte maxPlayersPerRoom = 3;
     string gameVersion = "1";
     bool isConnecting;
     void Awake()
@@ -61,20 +61,21 @@ public class Lobby : MonoBehaviourPunCallbacks
 
         // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
 
-        MakeRoom();
-        
-        
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+
+
     }
 
-    public void MakeRoom()
+   /* public void MakeRoom()
     {
-        RoomOptions roomOptions = new RoomOptions() { MaxPlayers = 2 };
+        RoomOptions roomOptions = new RoomOptions() { MaxPlayers = 3 };
         Hashtable RoomCustomProperties = new Hashtable();
         RoomCustomProperties.Add("P1Active", 0);
         RoomCustomProperties.Add("P2Active", 0);
+        RoomCustomProperties.Add("P3Active", 0);
         roomOptions.CustomRoomProperties = RoomCustomProperties;
         PhotonNetwork.CreateRoom(null, roomOptions);
-    }
+    }*/
 
     public override void OnJoinedRoom()
     {
@@ -88,6 +89,6 @@ public class Lobby : MonoBehaviourPunCallbacks
             // Load the Room Level.
             PhotonNetwork.LoadLevel("Room for 1");
         }
-        
+
     }
 }

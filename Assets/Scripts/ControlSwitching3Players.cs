@@ -10,7 +10,7 @@ using UnityEngine.XR;
 using UnityEngine.XR.ARSubsystems;
 using TMPro;
 using UnityEngine.UI;
-public class ControlSwitching : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
+public class ControlSwitching3Players : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
 {
     public string owner;
     private Button transfer_button;
@@ -23,8 +23,10 @@ public class ControlSwitching : MonoBehaviourPunCallbacks, IPunOwnershipCallback
     Vector3 objPosition;
     public bool isOwner;
     Player Master;
-    Player Client;
-    public Toggle toggleOwnership;
+    Player Client1;
+    Player Client2;
+    public Toggle toggleOwnershipClient1;
+    public Toggle toggleOwnershipClient2;
     Player new_owner;
     GameObject go;
     // Start is called before the first frame update
@@ -39,22 +41,14 @@ public class ControlSwitching : MonoBehaviourPunCallbacks, IPunOwnershipCallback
         owner_cube2.text = PhotonNetwork.MasterClient.NickName;
         label_owner.text = PhotonNetwork.LocalPlayer.NickName;
         Player[] pList = PhotonNetwork.PlayerList;
-
-        for(int i=0; i < pList.Length; i++)
-        {
-            if(pList[i].NickName==PhotonNetwork.MasterClient.NickName)
-            {
-                Master = pList[i];
-            }
-            else
-            {
-                Client = pList[i];
-            }
-        }
+        Master = pList[0];
+        Client1 = pList[1];
+        Client2= pList[2];
 
         if (!PhotonNetwork.IsMasterClient)
         {
-            toggleOwnership.gameObject.SetActive(false);
+            toggleOwnershipClient1.gameObject.SetActive(false);
+            toggleOwnershipClient2.gameObject.SetActive(false);
         }
 
     }
@@ -71,14 +65,14 @@ public class ControlSwitching : MonoBehaviourPunCallbacks, IPunOwnershipCallback
     }
     public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
     {
-       if (targetView.gameObject != base.photonView.gameObject)
+        if (targetView.gameObject != base.photonView.gameObject)
         {
             return;
         }
-       
-            this.photonView.TransferOwnership(requestingPlayer);
-            SetMaterial();
-            
+
+        this.photonView.TransferOwnership(requestingPlayer);
+        SetMaterial();
+
     }
 
     public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
@@ -94,22 +88,42 @@ public class ControlSwitching : MonoBehaviourPunCallbacks, IPunOwnershipCallback
         throw new System.NotImplementedException();
     }
 
-    public void ToggleOwnership(bool toggle)
+    public void ToggleOwnershipClient1(bool toggle)
     {
-       
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if (PhotonNetwork.MasterClient.NickName != gameObject.GetPhotonView().Owner.NickName)
-                {
-                    this.photonView.RequestOwnership();
 
-                }
-                else
-                {
-                this.photonView.TransferOwnership(Client);
-                }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (PhotonNetwork.MasterClient.NickName != gameObject.GetPhotonView().Owner.NickName)
+            {
+                this.photonView.RequestOwnership();
+
             }
-       
+            else
+            {
+                this.photonView.TransferOwnership(Client1);
+            }
+        }
+
+
+
+    }
+
+    public void ToggleOwnershipClient2(bool toggle)
+    {
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (PhotonNetwork.MasterClient.NickName != gameObject.GetPhotonView().Owner.NickName)
+            {
+                this.photonView.RequestOwnership();
+
+            }
+            else
+            {
+                this.photonView.TransferOwnership(Client2);
+            }
+        }
+
 
 
     }
@@ -117,14 +131,16 @@ public class ControlSwitching : MonoBehaviourPunCallbacks, IPunOwnershipCallback
     {
         if (this.photonView.Owner.NickName == Master.NickName)
         {
-            this.GetComponent<MeshRenderer>().material.color = Color.green;
+            this.GetComponent<MeshRenderer>().material.color = Color.red;
         }
-        if (this.photonView.Owner.NickName == Client.NickName)
+        if (this.photonView.Owner.NickName == Client1.NickName)
         {
-            this.GetComponent<MeshRenderer>().material.color = Color.yellow;
+            this.GetComponent<MeshRenderer>().material.color = Color.blue;
+        }
+        if (this.photonView.Owner.NickName == Client2.NickName)
+        {
+            this.GetComponent<MeshRenderer>().material.color = Color.green;
         }
 
     }
-
 }
-

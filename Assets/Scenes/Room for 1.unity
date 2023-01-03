@@ -391,10 +391,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e3d743e40ebc44ead1adb9f370a3b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 4555883241595728601, guid: fa35db29150114045a397b4e40cf8904, type: 3}
+  playerPrefab: {fileID: 1862154300728209156, guid: 89bd5cd69fc393a45b805d3330d467fe, type: 3}
   isPresent: 0
   sceneLoad: 0
-  ARCam: {fileID: 1884300181}
+  screen_center: {x: 0, y: 0, z: 0}
+  Players: []
+  prefabName: 
 --- !u!4 &279453662
 Transform:
   m_ObjectHideFlags: 0

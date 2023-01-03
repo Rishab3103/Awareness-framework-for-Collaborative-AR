@@ -27,7 +27,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Instance = this;
         //isPresent = false;
         screen_center = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-        PhotonNetwork.Instantiate(this.playerPrefab.name, Vector3.zero, Quaternion.identity, 0);
+        if (isPresent == false)
+        {
+            PhotonNetwork.Instantiate(this.playerPrefab.name, Vector3.zero, Quaternion.identity, 0);
+            isPresent = true;
+        }
+        
         
         for(int i=0; i< GameObject.FindGameObjectsWithTag(prefabName).Length; i++)
         {
