@@ -98,12 +98,13 @@ public class ControlSwitching3Players : MonoBehaviourPunCallbacks, IPunOwnership
                 this.photonView.RequestOwnership();
 
             }
-            else
+            else 
             {
                 this.photonView.TransferOwnership(Client1);
             }
         }
 
+        toggleOwnershipClient2.isOn = false;
 
 
     }
@@ -118,13 +119,13 @@ public class ControlSwitching3Players : MonoBehaviourPunCallbacks, IPunOwnership
                 this.photonView.RequestOwnership();
 
             }
-            else
+            else if(toggleOwnershipClient1.isOn==false)
             {
                 this.photonView.TransferOwnership(Client2);
             }
         }
 
-
+        toggleOwnershipClient1.isOn = false;
 
     }
     public void SetMaterial()
