@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - cube
+  - player
+  - UMAIgnore
+  - sphere
+  - capsule
   layers:
   - Default
   - TransparentFX

@@ -8,13 +8,16 @@ public class CubeMove : NetworkBehaviour
 {
     // Start is called before the first frame update
     Vector3 position;
-    [SerializeField] private Transform objectToSync;
+    
 
     void Start()
     {
+        GameObject.FindGameObjectWithTag("cube").transform.GetChild(0).gameObject.SetActive(false);
+        GameObject.FindGameObjectWithTag("cube").transform.GetChild(1).gameObject.SetActive(false);
         
     }
 
+   
 
     // Update is called once per frame
     void Update()
@@ -23,54 +26,59 @@ public class CubeMove : NetworkBehaviour
         {
             CmdAssignClientAuthority();
             
+
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            CmdAssignServerAuthority();
+            CmdRevokeAuthority();
         }
-      if(isServer)
-        {
-            MoveCubeOnClient();
-        }
-       
+
 
  
        
     }
-    [Command]
-    public void MoveCubeOnClient()
-    {
-        HandleMovement();
-    }
+
     
 
-    [ClientRpc]
-    public void HandleMovement()
-    {
-        if(isLocalPlayer)
-        {
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            float moveVertical = Input.GetAxis("Vertical");
-            Vector3 movement = new Vector3(moveHorizontal * 0.1f, moveVertical * 0.1f, 0);
-            GameObject.FindGameObjectWithTag("cube").transform.position = GameObject.FindGameObjectWithTag("cube").transform.position + movement;
-            Debug.Log("MoveClient");
-        }
-     
 
-        
-
-    }
     
     [Command]
     public void CmdAssignClientAuthority()
     {
         GameObject.FindGameObjectWithTag("cube").GetComponent<NetworkIdentity>().AssignClientAuthority(this.GetComponent<NetworkIdentity>().connectionToClient);
 
+
+        GameObject.FindGameObjectWithTag("cube").transform.GetChild(0).gameObject.SetActive(isOwned);
+        GameObject.FindGameObjectWithTag("cube").transform.GetChild(1).gameObject.SetActive(!isOwned);
+
+        Debug.Log("Is Owned:" + isOwned);
+        RpcToggleChildObjects(isOwned);
     }
 
-    public void CmdAssignServerAuthority()
+    public void CmdRevokeAuthority()
     {
         GameObject.FindGameObjectWithTag("cube").GetComponent<NetworkIdentity>().RemoveClientAuthority();
 
+        GameObject.FindGameObjectWithTag("cube").transform.GetChild(0).gameObject.SetActive(false);
+        GameObject.FindGameObjectWithTag("cube").transform.GetChild(1).gameObject.SetActive(false);
+        RpcMakeChildObjectsInactive(false);
+        Debug.Log("Is Owned Revoke:" + isOwned);
+    }
+   [ClientRpc]
+    private void RpcMakeChildObjectsInactive(bool child1Active)
+    {
+      
+        GameObject.FindGameObjectWithTag("cube").transform.GetChild(0).gameObject.SetActive(child1Active);
+        GameObject.FindGameObjectWithTag("cube").transform.GetChild(1).gameObject.SetActive(child1Active);
+        Debug.Log("Is Owned Revoke:" + isOwned);
+    }
+
+    [ClientRpc]
+    private void RpcToggleChildObjects(bool child1Active)
+    {
+
+        GameObject.FindGameObjectWithTag("cube").transform.GetChild(0).gameObject.SetActive(child1Active);
+        GameObject.FindGameObjectWithTag("cube").transform.GetChild(1).gameObject.SetActive(!child1Active);
+        Debug.Log("Is Owned:" + isOwned);
     }
 }

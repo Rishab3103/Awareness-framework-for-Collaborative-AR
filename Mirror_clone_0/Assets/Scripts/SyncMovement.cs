@@ -58,12 +58,17 @@ public class SyncMovement : NetworkBehaviour
 
     // Authority variables
     private bool isOwner = false;
-    private Vector3 lastPosition;
+    private Vector3 lastPosition= new Vector3(0,0,5);
     private Quaternion lastRotation;
+    
+    
     private void Start()
     {
         syncedObject = this.gameObject;
+        
     }
+
+  
     // Update is called once per frame
     void Update()
     {
