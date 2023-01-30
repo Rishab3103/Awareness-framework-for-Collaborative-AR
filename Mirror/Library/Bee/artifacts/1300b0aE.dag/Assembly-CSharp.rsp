@@ -422,9 +422,10 @@
 -r:"Library/Bee/artifacts/1300b0aE.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/1300b0aE.dag/UnityEngine.XR.LegacyInputHelpers.ref.dll"
 "Assets/ParrelSync/Examples/CustomArgumentExample.cs"
+"Assets/Scripts/ARScreenShare.cs"
 "Assets/Scripts/CubeMove.cs"
-"Assets/Scripts/MoveWithCube.cs"
 "Assets/Scripts/PlayerSyncWithCamera.cs"
+"Assets/Scripts/SyncActiveStates.cs"
 "Assets/Scripts/SyncMovement.cs"
 -langversion:9.0
 

@@ -23,9 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeanCommon", "LeanCommon.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplexTransport", "MultiplexTransport.csproj", "{979DCADA-CB85-5D97-F5BF-23BE6BA57263}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewareTransport", "MiddlewareTransport.csproj", "{175F8E71-D9D1-1589-E3CB-EB76B19DD7CC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{ED65AC91-D8B4-BBEB-FA4C-70CF392AACDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewareTransport", "MiddlewareTransport.csproj", "{175F8E71-D9D1-1589-E3CB-EB76B19DD7CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Authenticators", "Mirror.Authenticators.csproj", "{027DD264-013E-E583-06BD-0DBBB5638D05}"
 EndProject
@@ -87,14 +87,14 @@ Global
 		{979DCADA-CB85-5D97-F5BF-23BE6BA57263}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{979DCADA-CB85-5D97-F5BF-23BE6BA57263}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{979DCADA-CB85-5D97-F5BF-23BE6BA57263}.Release|Any CPU.Build.0 = Release|Any CPU
-		{175F8E71-D9D1-1589-E3CB-EB76B19DD7CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{175F8E71-D9D1-1589-E3CB-EB76B19DD7CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{175F8E71-D9D1-1589-E3CB-EB76B19DD7CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{175F8E71-D9D1-1589-E3CB-EB76B19DD7CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED65AC91-D8B4-BBEB-FA4C-70CF392AACDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED65AC91-D8B4-BBEB-FA4C-70CF392AACDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED65AC91-D8B4-BBEB-FA4C-70CF392AACDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED65AC91-D8B4-BBEB-FA4C-70CF392AACDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175F8E71-D9D1-1589-E3CB-EB76B19DD7CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175F8E71-D9D1-1589-E3CB-EB76B19DD7CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175F8E71-D9D1-1589-E3CB-EB76B19DD7CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175F8E71-D9D1-1589-E3CB-EB76B19DD7CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{027DD264-013E-E583-06BD-0DBBB5638D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{027DD264-013E-E583-06BD-0DBBB5638D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{027DD264-013E-E583-06BD-0DBBB5638D05}.Release|Any CPU.ActiveCfg = Release|Any CPU

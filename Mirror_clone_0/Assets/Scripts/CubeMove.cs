@@ -8,13 +8,18 @@ public class CubeMove : NetworkBehaviour
 {
     // Start is called before the first frame update
     Vector3 position;
-    
+    private Button TransferAuthority;
+    private Button RevokeAuthority;
 
     void Start()
     {
         GameObject.FindGameObjectWithTag("cube").transform.GetChild(0).gameObject.SetActive(false);
         GameObject.FindGameObjectWithTag("cube").transform.GetChild(1).gameObject.SetActive(false);
-        
+        TransferAuthority = GameObject.Find("Transfer Authority").GetComponent<Button>();
+        RevokeAuthority = GameObject.Find("Revoke Authority").GetComponent<Button>();
+        TransferAuthority.onClick.AddListener(CmdAssignClientAuthority);
+        RevokeAuthority.onClick.AddListener(CmdRevokeAuthority);
+
     }
 
    
@@ -22,20 +27,7 @@ public class CubeMove : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.X))
-        {
-            CmdAssignClientAuthority();
-            
 
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            CmdRevokeAuthority();
-        }
-
-
- 
-       
     }
 
     
@@ -54,7 +46,7 @@ public class CubeMove : NetworkBehaviour
         Debug.Log("Is Owned:" + isOwned);
         RpcToggleChildObjects(isOwned);
     }
-
+    [Command]
     public void CmdRevokeAuthority()
     {
         GameObject.FindGameObjectWithTag("cube").GetComponent<NetworkIdentity>().RemoveClientAuthority();
